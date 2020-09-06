@@ -1,0 +1,134 @@
+{
+    "schedule": {
+        "mon": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+        ],
+        "tue": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+        ],
+        "wed": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+        ],
+        "thu": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+        ],
+        "fri": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+        ]
+    },
+    "time": {
+        "time": [
+            [
+                "number",
+                "number"
+            ],
+            [
+                "number",
+                "number"
+            ],
+            [
+                "number",
+                "number"
+            ],
+            [
+                "number",
+                "number"
+            ],
+            [
+                "number",
+                "number"
+            ],
+            [
+                "number",
+                "number"
+            ],
+            [
+                "number",
+                "number"
+            ]
+        ],
+        "lunch_time": [
+            "number",
+            "number"
+        ],
+        "break_time": "number",
+        "running_time": "number"
+    },
+    "memo": {
+        "mon": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+        ],
+        "tue": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+        ],
+        "wed": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+        ],
+        "thu": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+        ],
+        "fri": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+        ]
+    }
+}
