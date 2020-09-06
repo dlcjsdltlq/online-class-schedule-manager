@@ -1,9 +1,9 @@
 from PyQt5 import QtWidgets, QtCore, uic
-from .manage_file import ManageFile
-from .memo_window import MemoWindow
-from .schedule_window import ScheduleWindow
-from .time_thread import TimeThread
-from .util import resource_path
+from manage_file import ManageFile
+from memo_window import MemoWindow
+from schedule_window import ScheduleWindow
+from time_thread import TimeThread
+from util import resource_path
 import datetime
 import sys
 import os
@@ -156,3 +156,9 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         self.time_thread.start()
         self.time_thread.time_signal.connect(self.changePeriod)
         self.time_thread.except_signal.connect(self.getTimeThreadExcept)
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    main_window = MainWindow()
+    main_window.show()
+    app.exec_()

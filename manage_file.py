@@ -1,4 +1,4 @@
-from .util import resource_path
+from util import resource_path
 import jsonschema
 import json
 
