@@ -26,9 +26,9 @@ class ManageFile():
         schedule['schedule'][schedule_data[0]][schedule_data[1]] = schedule_data[2]
         self.writeJson(file_name, schedule)
 
-    def updateMemo(self, file_name, memo_data): #데이터 형식: ('mon', 2, '출석 체크는 카카오톡에서 15분 이내로 진행함')
+    def updateMemo(self, file_name, memo_data): #데이터 형식: ('통사', '출석 체크는 카카오톡에서 15분 이내로 진행함')
         memo = self.readJson(file_name)
-        memo['memo'][memo_data[0]][memo_data[1]] = memo_data[2]
+        memo['memo'][memo_data[0]] = memo_data[1]
         self.writeJson(file_name, memo)
 
     def updateTime(self, file_name, time_data): #데이터 형식: ('time', [[9, 0], ~])
