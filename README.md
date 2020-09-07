@@ -1,4 +1,4 @@
-# OnlineclassScheduler
+# Online class schedule manager
 ## 설명
 2020년 코로나 바이러스 감염증 사태로 인해 진행하는 온라인 수업을 좀 더 쉽게 진행할 수 있도록 도와주는 프로그램입니다.
 ## 기능
