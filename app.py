@@ -90,7 +90,10 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
 
     def modifyMemo(self): #과목별 메모
         idx = self.period_schedule_widget_list[self.today].index(self.sender())
-        current_memo = self.file_manage_class.readMemo(self.file_name)[self.today][idx]
+        try:
+            current_memo = self.file_manage_class.readMemo(self.file_name)[self.schedule_dic[self.today][idx]]
+        except KeyError:
+            current_memo = ''
         self.memo_dialog = MemoWindow(target_widget=self.sender(), current_memo=current_memo)
         self.memo_dialog.memo_signal.connect(self.saveMemo)
         self.memo_dialog.show()
@@ -100,7 +103,8 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         target_widget = memo_data[0]
         memo = memo_data[1]
         idx = self.period_schedule_widget_list[self.today].index(target_widget)
-        self.file_manage_class.updateMemo(self.file_name, [self.today, idx, memo])
+        subject = self.schedule_dic[self.today][idx]
+        self.file_manage_class.updateMemo(self.file_name, [subject, memo])
 
     @QtCore.pyqtSlot(tuple)
     def changeSchedule(self, all_data): #시간표 변경하기
@@ -131,12 +135,15 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
 
     @QtCore.pyqtSlot(tuple) #current_period = (class_type, idx), class_type: 'yes' | 'break' | 'lunch' | 'no'
     def changePeriod(self, current_period): #현재 교시 표시
-        label_text = ''
-        memo = ''
+        label_text = ''; memo = ''; next_memo = ''
         if current_period[0] == 'yes':
             period_name = f'{self.schedule_dic[self.today][current_period[1]]}시간'
             label_text = f'지금은 {current_period[1]+1}교시 {period_name}입니다.'
-            memo = self.file_manage_class.readMemo(self.file_name)[self.today][current_period[1]]
+            try:
+                memo = self.file_manage_class.readMemo(self.file_name)[self.schedule_dic[self.today][current_period[1]]]
+                next_memo = self.file_manage_class.readMemo(self.file_name)[self.schedule_dic[self.today][current_period[1]+1]]
+            except:
+                pass
         elif current_period[0] == 'break':
             label_text = '지금은 쉬는 시간입니다'
         elif current_period[0] == 'lunch':
@@ -145,6 +152,8 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
             label_text = '지금은 수업 시간이 아닙니다'
         self.label_current_time.setText(label_text)
         self.text_browser_memo.setText(memo)
+        self.text_browser_memo.append('\n--------다음 교시 메모--------\n')
+        self.text_browser_memo.append(next_memo)
 
     def getPeriod(self): #시간 체크 스레드 실행
         self.time_dic = self.file_manage_class.readTime(self.file_name)
