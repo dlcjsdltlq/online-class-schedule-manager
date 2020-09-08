@@ -4,12 +4,13 @@ from memo_window import MemoWindow
 from schedule_window import ScheduleWindow
 from time_thread import TimeThread
 from util import resource_path
+import ballontip
 import datetime
 import sys
 import os
 
-main_form_class = uic.loadUiType(resource_path('resources/ui/ui_main_window.ui'))[0]
-schedule_sample_json = resource_path('resources/json/schedule_sample.json')
+main_form_class = uic.loadUiType(resource_path('ui_main_window.ui'))[0]
+schedule_sample_json = resource_path('schedule_sample.json')
 
 class MainWindow(QtWidgets.QMainWindow, main_form_class):
     def __init__(self):
@@ -20,6 +21,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         self.time_dic : dict #시간 일정 데이터
         self.memo_dialog : MemoWindow
         self.time_thread : TimeThread
+        self.current_period = -1
         self.day_korean_string_list = ['월', '화', '수', '목', '금', '토', '일'] #숫자 인덱스 => 한글 변환
         self.day_string_list = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] #숫자 인덱스 => 영어 변환
         self.today_korean = self.day_korean_string_list[datetime.datetime.today().weekday()] #오늘 요일 한글
@@ -34,6 +36,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
             self.schedule_thu, 
             self.schedule_fri, 
             ]
+        self.ballon_tip = ballontip.WindowsBalloonTip()
         self.file_manage_class = ManageFile()
         self.getFileFromDefaultPath()
         self.readSchedule()
@@ -84,8 +87,9 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
 
     def toggleButton(self): #버튼 토글
         toggle_dic = {True: 'QPushButton {color: red; font-size: 16px;}', False: 'QPushButton {color: green; font-size: 16px;}'}
-        idx = self.period_schedule_widget_list[self.today].index(self.sender())
-        self.sender().setStyleSheet(toggle_dic[self.toggle_list[idx]])
+        widget = self.sender()
+        idx = self.period_schedule_widget_list[self.today].index(widget)
+        widget.setStyleSheet(toggle_dic[self.toggle_list[idx]])
         self.toggle_list[idx] = not self.toggle_list[idx]
 
     def modifyMemo(self): #과목별 메모
@@ -140,20 +144,24 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
             period_name = f'{self.schedule_dic[self.today][current_period[1]]}시간'
             label_text = f'지금은 {current_period[1]+1}교시 {period_name}입니다.'
             try:
-                memo = self.file_manage_class.readMemo(self.file_name)[self.schedule_dic[self.today][current_period[1]]]
-                next_memo = self.file_manage_class.readMemo(self.file_name)[self.schedule_dic[self.today][current_period[1]+1]]
-            except:
-                pass
+                memo = self.file_manage_class.readMemo(self.file_name)[self.schedule_dic[self.today][current_period[1]]] + '\n'
+            except: pass
         elif current_period[0] == 'break':
             label_text = '지금은 쉬는 시간입니다'
         elif current_period[0] == 'lunch':
             label_text = '지금은 점심 시간입니다'
         elif current_period[0] == 'no':
             label_text = '지금은 수업 시간이 아닙니다'
+        try:
+            next_memo = self.file_manage_class.readMemo(self.file_name)[self.schedule_dic[self.today][current_period[1]+1]]
+        except: pass
+        else:
+            memo += '--------다음 교시 메모--------\n' + next_memo
+        if current_period[1] != self.current_period:
+            self.ballon_tip.ShowWindow('알림', label_text)
+        self.current_period = current_period[1]
         self.label_current_time.setText(label_text)
         self.text_browser_memo.setText(memo)
-        self.text_browser_memo.append('\n--------다음 교시 메모--------\n')
-        self.text_browser_memo.append(next_memo)
 
     def getPeriod(self): #시간 체크 스레드 실행
         self.time_dic = self.file_manage_class.readTime(self.file_name)
