@@ -149,8 +149,10 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
             label_text = '지금은 쉬는 시간입니다'
         elif current_period[0] == 'lunch':
             label_text = '지금은 점심 시간입니다'
-        elif current_period[0] == 'no':
-            label_text = '지금은 수업 시간이 아닙니다'
+        elif current_period[0] == 'before':
+            label_text = '지금은 수업 시간 전입니다'
+        elif current_period[0] == 'after':
+            label_text = '수업이 끝났습니다'
         try:
             next_memo = self.file_manage_class.readMemo(self.file_name)[self.schedule_dic[self.today][current_period[1]+1]]
         except: pass
@@ -172,6 +174,13 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         self.time_thread.start()
         self.time_thread.time_signal.connect(self.changePeriod)
         self.time_thread.except_signal.connect(self.getTimeThreadExcept)
+
+    def closeEvent(self, event):
+        reply = QtWidgets.QMessageBox.question(self, '종료', '프로그램을 종료하시겠습니까?', QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        if reply == QtWidgets.QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
