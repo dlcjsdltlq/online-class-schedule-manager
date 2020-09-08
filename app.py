@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, QtCore, uic
+from PyQt5 import QtWidgets, QtCore, QtGui, uic
 from manage_file import ManageFile
 from memo_window import MemoWindow
 from schedule_window import ScheduleWindow
@@ -9,13 +9,15 @@ import datetime
 import sys
 import os
 
-main_form_class = uic.loadUiType(resource_path('/resource/ui/ui_main_window.ui'))[0]
-schedule_sample_json = resource_path('/resource/json/schedule_sample.json')
+main_form_class = uic.loadUiType(resource_path('/resources/ui/ui_main_window.ui'))[0]
+schedule_sample_json = resource_path('/resources/json/schedule_sample.json')
+logo_ico = resource_path('/resources/icon/logo.ico')
 
 class MainWindow(QtWidgets.QMainWindow, main_form_class):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QtGui.QIcon(logo_ico))
         self.file_name : str #시간표 json 파일 이름
         self.schedule_dic : dict #시간표 데이터
         self.time_dic : dict #시간 일정 데이터
@@ -159,7 +161,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         else:
             memo += '--------다음 교시 메모--------\n' + next_memo
         if label_text != self.current_txt:
-            notification.notify('알림', label_text)
+            notification.notify('알림', label_text, app_icon=logo_ico, app_name='온라인 수업 일정 도우미')
         self.current_txt = label_text
         self.label_current_time.setText(label_text)
         self.text_browser_memo.setText(memo)
