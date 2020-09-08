@@ -4,13 +4,13 @@ from memo_window import MemoWindow
 from schedule_window import ScheduleWindow
 from time_thread import TimeThread
 from util import resource_path
-from win10toast import ToastNotifier
+from plyer import notification
 import datetime
 import sys
 import os
 
-main_form_class = uic.loadUiType(resource_path('/resources/ui/ui_main_window.ui'))[0]
-schedule_sample_json = resource_path('/resources/json/schedule_sample.json')
+main_form_class = uic.loadUiType(resource_path('/resource/ui/ui_main_window.ui'))[0]
+schedule_sample_json = resource_path('/resource/json/schedule_sample.json')
 
 class MainWindow(QtWidgets.QMainWindow, main_form_class):
     def __init__(self):
@@ -36,7 +36,6 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
             self.schedule_thu, 
             self.schedule_fri, 
             ]
-        self.toast_notifier = ToastNotifier()
         self.file_manage_class = ManageFile()
         self.getFileFromDefaultPath()
         self.readSchedule()
@@ -158,7 +157,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         else:
             memo += '--------다음 교시 메모--------\n' + next_memo
         if label_text != self.current_txt:
-            self.toast_notifier.show_toast('알림', label_text, threaded=True)
+            notification.notify('알림', label_text)
         self.current_txt = label_text
         self.label_current_time.setText(label_text)
         self.text_browser_memo.setText(memo)
