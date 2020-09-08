@@ -9,8 +9,8 @@ import datetime
 import sys
 import os
 
-main_form_class = uic.loadUiType(resource_path('ui_main_window.ui'))[0]
-schedule_sample_json = resource_path('schedule_sample.json')
+main_form_class = uic.loadUiType(resource_path('/resources/ui/ui_main_window.ui'))[0]
+schedule_sample_json = resource_path('/resources/json/schedule_sample.json')
 
 class MainWindow(QtWidgets.QMainWindow, main_form_class):
     def __init__(self):
