@@ -4,7 +4,7 @@ from memo_window import MemoWindow
 from schedule_window import ScheduleWindow
 from time_thread import TimeThread
 from util import resource_path
-import ballontip
+from win10toast import ToastNotifier
 import datetime
 import sys
 import os
@@ -21,7 +21,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         self.time_dic : dict #시간 일정 데이터
         self.memo_dialog : MemoWindow
         self.time_thread : TimeThread
-        self.current_period = -1
+        self.current_txt = None
         self.day_korean_string_list = ['월', '화', '수', '목', '금', '토', '일'] #숫자 인덱스 => 한글 변환
         self.day_string_list = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] #숫자 인덱스 => 영어 변환
         self.today_korean = self.day_korean_string_list[datetime.datetime.today().weekday()] #오늘 요일 한글
@@ -36,7 +36,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
             self.schedule_thu, 
             self.schedule_fri, 
             ]
-        self.ballon_tip = ballontip.WindowsBalloonTip()
+        self.toast_notifier = ToastNotifier()
         self.file_manage_class = ManageFile()
         self.getFileFromDefaultPath()
         self.readSchedule()
@@ -157,9 +157,9 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         except: pass
         else:
             memo += '--------다음 교시 메모--------\n' + next_memo
-        if current_period[1] != self.current_period:
-            self.ballon_tip.ShowWindow('알림', label_text)
-        self.current_period = current_period[1]
+        if label_text != self.current_txt:
+            self.toast_notifier.show_toast('알림', label_text, threaded=True)
+        self.current_txt = label_text
         self.label_current_time.setText(label_text)
         self.text_browser_memo.setText(memo)
 
