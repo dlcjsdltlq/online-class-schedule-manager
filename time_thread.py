@@ -19,8 +19,10 @@ class TimeThread(QtCore.QThread):
                     now_t = datetime.datetime.now()
                     now_t = (now_t.hour*60 + now_t.minute)*60 + now_t.second
                     signal_data : tuple
-                    if (now_t < first_t) | (now_t > last_t): #수업 시간이 아닐 경우
-                        signal_data = ('no', None)
+                    if (now_t < first_t): #수업 시작 전인 경우
+                        signal_data = ('before', None)
+                    if (now_t > last_t): #수업이 끝났을 경우
+                        signal_data = ('after', None)
                     elif (start_t < now_t) & (now_t < end_t): #수업 시간일 경우
                         signal_data = ('yes', idx)
                     elif (end_t < now_t) & (now_t < b_end_t): #쉬는 시간일 경우
