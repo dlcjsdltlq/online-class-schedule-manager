@@ -3,15 +3,21 @@ from manage_file import ManageFile
 from memo_window import MemoWindow
 from schedule_window import ScheduleWindow
 from time_thread import TimeThread
+from util import getMemoAndOpenBrowser
 from util import resource_path
 from plyer import notification
 import datetime
 import sys
 import os
 
-main_form_class = uic.loadUiType(resource_path('/resources/ui/ui_main_window.ui'))[0]
-schedule_sample_json = resource_path('/resources/json/schedule_sample.json')
-logo_ico = resource_path('/resources/icon/logo.ico')
+#path for build
+#main_form_class = uic.loadUiType(resource_path('ui_main_window.ui'))[0]
+#schedule_sample_json = resource_path('schedule_sample.json')
+#logo_ico = resource_path('logo.ico')
+
+main_form_class = uic.loadUiType(resource_path('./resources/ui/ui_main_window.ui'))[0]
+schedule_sample_json = resource_path('./resources/json/schedule_sample.json')
+logo_ico = resource_path('./resources/icon/logo.ico')
 
 class MainWindow(QtWidgets.QMainWindow, main_form_class):
     def __init__(self):
@@ -160,8 +166,11 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         except: pass
         else:
             memo += '--------다음 교시 메모--------\n' + next_memo
+        is_open = False
         if label_text != self.current_txt:
             notification.notify('알림', label_text, app_icon=logo_ico, app_name='온라인 수업 일정 도우미')
+            is_open = True
+        memo = getMemoAndOpenBrowser(memo, is_open)
         self.current_txt = label_text
         self.label_current_time.setText(label_text)
         self.text_browser_memo.setText(memo)
