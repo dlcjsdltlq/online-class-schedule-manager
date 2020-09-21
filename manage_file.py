@@ -2,7 +2,10 @@ from util import resource_path
 import jsonschema
 import json
 
-schedule_schema_json = resource_path('resources/json/schedule_schema.json')
+#path for build
+#schedule_schema_json = resource_path('schedule_schema.json')
+
+schedule_schema_json = resource_path('./resources/json/schedule_schema.json')
 
 class ManageFile():
     def validateJson(self, file_name): #json 스키마와 대조
