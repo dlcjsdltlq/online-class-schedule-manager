@@ -1,9 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, uic
 from util import resource_path
 
-#path for build
-#schedule_form_class = uic.loadUiType(resource_path('ui_schedule_window.ui'))[0]
-
 schedule_form_class = uic.loadUiType(resource_path('./resources/ui/ui_schedule_window.ui'))[0]
 
 class ScheduleWindow(QtWidgets.QDialog, schedule_form_class):

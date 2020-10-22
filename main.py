@@ -10,10 +10,6 @@ import datetime
 import sys
 import os
 
-#main_form_class = uic.loadUiType(resource_path('ui_main_window.ui'))[0]
-#schedule_sample_json = resource_path('schedule_sample.json')
-#logo_ico = resource_path('logo.ico')
-
 main_form_class = uic.loadUiType(resource_path('./resources/ui/ui_main_window.ui'))[0]
 schedule_sample_json = resource_path('./resources/json/schedule_sample.json')
 logo_ico = resource_path('./resources/icon/logo.ico')

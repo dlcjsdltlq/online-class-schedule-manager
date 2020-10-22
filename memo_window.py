@@ -1,9 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, uic
 from util import resource_path
 
-#path for build
-#memo_form_class = uic.loadUiType(resource_path('ui_memo_window.ui'))[0]
-
 memo_form_class = uic.loadUiType(resource_path('./resources/ui/ui_memo_window.ui'))[0]
 
 class MemoWindow(QtWidgets.QDialog, memo_form_class):

@@ -2,9 +2,6 @@ from util import resource_path
 import jsonschema
 import json
 
-#path for build
-#schedule_schema_json = resource_path('schedule_schema.json')
-
 schedule_schema_json = resource_path('./resources/json/schedule_schema.json')
 
 class ManageFile():
