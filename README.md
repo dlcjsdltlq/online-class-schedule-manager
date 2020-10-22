@@ -23,4 +23,12 @@
 메모는 각 과목 우클릭을 통해 가능합니다. 메모를 입력하고 저장을 누르면 어느 요일 어느 교시든 동일한 과목에 똑같이 저장됩니다. <br>
 URL을 자동으로 열어야 하는 경우 다음과 같은 방법으로 메모에 추가해 자동 오픈 기능을 이용할 수 있습니다: <br>
 ```url:[[https://github.com/]]```
-
+## 직접 빌드하고 싶을 경우
+모든 것이 준비되어 있으니 다음 명령어만 따라 치시면 됩니다
+```
+C:\> git clone https://github.com/dlcjsdltlq/online-class-schedule-manager.git
+C:\> cd online-class-schedule-manager
+C:\online-class-schedule-manager> pip install -r requirements.txt
+C:\online-class-schedule-manager> pyinstaller -w -F main.spec
+```
+빌드 파일은 /dist에 생성됩니다
