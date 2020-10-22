@@ -6,7 +6,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['C:\\Users\\kusta\\Desktop\\OnlineclassScheduler'],
+             pathex=['.'],
              binaries=[],
              datas=[
                 ('./resources/json/schedule_sample.json', 'resources/json'),
