@@ -219,12 +219,18 @@
      <string>메뉴</string>
     </property>
     <addaction name="action_schedule_change"/>
+    <addaction name="action_open_file"/>
    </widget>
    <addaction name="menu"/>
   </widget>
   <action name="action_schedule_change">
    <property name="text">
     <string>시간표 수정</string>
+   </property>
+  </action>
+  <action name="action_open_file">
+   <property name="text">
+    <string>파일 불러오기</string>
    </property>
   </action>
  </widget>

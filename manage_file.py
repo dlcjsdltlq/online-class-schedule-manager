@@ -9,7 +9,7 @@ class ManageFile():
         schema = self.readJson(schedule_schema_json)
         user_schedule = self.readJson(file_name)
         try:
-            jsonschema.validate(instance=user_schedule, schema=schema)
+            jsonschema.validate(user_schedule, schema)
         except: return False
         else: return True
     

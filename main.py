@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, QtGui, uic
+from PyQt5.QtWidgets import QFileDialog
 from manage_file import ManageFile
 from memo_window import MemoWindow
 from schedule_window import ScheduleWindow
@@ -10,12 +11,16 @@ from util import getMemoAndOpenBrowser
 from util import openBrowser
 import requests
 import datetime
+import shutil
 import sys
 import os
 
 main_form_class = uic.loadUiType(resource_path('./resources/ui/ui_main_window.ui'))[0]
 schedule_sample_json = resource_path('./resources/json/schedule_sample.json')
 logo_ico = resource_path('./resources/icon/logo.ico')
+
+DEFAULT_FILE_PATH = 'C:\\OnlineClassScheduleManager'
+DEFAULT_FILE_NAME = 'schedule.json'
 
 CUR_VER = '1.1.3'
 LATEST_VER = requests.get('https://raw.githubusercontent.com/dlcjsdltlq/online-class-schedule-manager/master/version.json').json()['version']
@@ -32,14 +37,15 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         self.memo_dialog : MemoWindow
         self.time_thread : TimeThread
         self.current_txt = None
-        self.day_korean_string_list = ['월', '화', '수', '목', '금', '토', '일'] #숫자 인덱스 => 한글 변환
-        self.day_string_list = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] #숫자 인덱스 => 영어 변환
+        self.day_korean_string_list = ['월', '화', '수', '목', '금', '토', '일'] #숫자 인덱스 -> 한글 변환
+        self.day_string_list = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] #숫자 인덱스 -> 영어 변환
         self.today_korean = self.day_korean_string_list[datetime.datetime.today().weekday()] #오늘 요일 한글
         self.today = self.day_string_list[datetime.datetime.today().weekday()] #오늘 요일 영어
         self.action_schedule_change.triggered.connect(self.openScheduleEditer) #시간표 변경 메뉴 실행
-        self.text_browser_memo.anchorClicked.connect(self.anchorClicked) #텍스트 브라우저에서 url 클릭했을 경우
+        self.action_open_file.triggered.connect(self.getFileFromUserPath) #시간표 불러우기 메뉴 실행
+        self.text_browser_memo.anchorClicked.connect(self.anchorClicked) #텍스트 브라우저에서 url 클릭 이벤트
         self.period_schedule_widget_list = {'mon': [], 'tue': [], 'wed': [], 'thu': [], 'fri': []} #각 과목별 버튼
-        self.toggle_list = [False]*7 #토글된 버튼 리스트-True일 경우 초록색, False일 경우 빨간색
+        self.toggle_list = [False]*7 #토글된 버튼 리스트: True일 경우 초록색, False일 경우 빨간색
         self.day_schedule_widget_layout_list = [ #각 요일별 레이아웃
             self.schedule_mon, 
             self.schedule_tue, 
@@ -62,12 +68,23 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
             else:
                 pass
 
+    def getFileFromUserPath(self):
+        user_file_name = QFileDialog.getOpenFileName(self, '파일 열기', './', "JSON Files (*.json)")[0]
+        if user_file_name:
+            if self.file_manage_class.validateJson(user_file_name):
+                result = QtWidgets.QMessageBox.warning(self, '알림', '기존 파일을 대체하시겠습니까?', QtWidgets.QMessageBox.Apply | QtWidgets.QMessageBox.Cancel)
+                if result == QtWidgets.QMessageBox.Apply:
+                    shutil.copy(user_file_name, DEFAULT_FILE_PATH + '//' + DEFAULT_FILE_NAME)
+                    os.execl(sys.executable, os.path.abspath(__file__), *sys.argv)
+                else:
+                    QtWidgets.QMessageBox.information(self, '알림', '취소되었습니다.', QtWidgets.QMessageBox.Apply)
+            else:
+                QtWidgets.QMessageBox.warning(self, '알림', '유효하지 않은 시간표 파일입니다.', QtWidgets.QMessageBox.Apply)
+
     def getFileFromDefaultPath(self): #기본 경로에서 파일 가져오기
-        default_path = 'C:\\OnlineClassScheduleManager'
-        default_file = 'schedule.json'
-        self.file_name = default_path + '\\' + default_file
-        if (not os.path.isdir(default_path)):
-            os.mkdir(default_path)
+        self.file_name = DEFAULT_FILE_PATH + '\\' + DEFAULT_FILE_NAME
+        if (not os.path.isdir(DEFAULT_FILE_PATH)):
+            os.mkdir(DEFAULT_FILE_PATH)
         if (not os.path.exists(self.file_name)):
             result = QtWidgets.QMessageBox.warning(self, '알림', '시간표가 존재하지 않습니다.\n생성하시겠습니까?', QtWidgets.QMessageBox.Apply | QtWidgets.QMessageBox.Cancel)
             if result == QtWidgets.QMessageBox.Apply:

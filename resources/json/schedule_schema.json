@@ -1,88 +1,675 @@
 {
-    "schedule": {
-        "mon": [
-            "string",
-            "string",
-            "string",
-            "string",
-            "string",
-            "string",
-            "string"
-        ],
-        "tue": [
-            "string",
-            "string",
-            "string",
-            "string",
-            "string",
-            "string",
-            "string"
-        ],
-        "wed": [
-            "string",
-            "string",
-            "string",
-            "string",
-            "string",
-            "string",
-            "string"
-        ],
-        "thu": [
-            "string",
-            "string",
-            "string",
-            "string",
-            "string",
-            "string",
-            "string"
-        ],
-        "fri": [
-            "string",
-            "string",
-            "string",
-            "string",
-            "string",
-            "string",
-            "string"
-        ]
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "schedule": {
+                "mon": [
+                    "영어",
+                    "미창",
+                    "수학",
+                    "통과",
+                    "국어",
+                    "통사",
+                    "한국사"
+                ],
+                "tue": [
+                    "수학",
+                    "한문",
+                    "통사",
+                    "체육",
+                    "기술",
+                    "국어",
+                    "영어"
+                ],
+                "wed": [
+                    "한국사",
+                    "수학",
+                    "가정",
+                    "영어",
+                    "창체",
+                    "창체",
+                    "창체"
+                ],
+                "thu": [
+                    "국어",
+                    "한문",
+                    "통과",
+                    "통사",
+                    "영어",
+                    "수학",
+                    "체육"
+                ],
+                "fri": [
+                    "미창",
+                    "진로",
+                    "한국사",
+                    "국어",
+                    "통과",
+                    "과탐",
+                    "자율"
+                ]
+            },
+            "time": {
+                "time": [
+                    [
+                        9,
+                        0
+                    ],
+                    [
+                        10,
+                        0
+                    ],
+                    [
+                        11,
+                        0
+                    ],
+                    [
+                        12,
+                        50
+                    ],
+                    [
+                        13,
+                        50
+                    ],
+                    [
+                        14,
+                        50
+                    ],
+                    [
+                        15,
+                        50
+                    ]
+                ],
+                "lunch_time": [
+                    11,
+                    50
+                ],
+                "break_time": 10,
+                "running_time": 50
+            },
+            "memo": {}
+        }
+    ],
+    "required": [
+        "schedule",
+        "time",
+        "memo"
+    ],
+    "properties": {
+        "schedule": {
+            "$id": "#/properties/schedule",
+            "type": "object",
+            "title": "The schedule schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "mon": [
+                        "영어",
+                        "미창",
+                        "수학",
+                        "통과",
+                        "국어",
+                        "통사",
+                        "한국사"
+                    ],
+                    "tue": [
+                        "수학",
+                        "한문",
+                        "통사",
+                        "체육",
+                        "기술",
+                        "국어",
+                        "영어"
+                    ],
+                    "wed": [
+                        "한국사",
+                        "수학",
+                        "가정",
+                        "영어",
+                        "창체",
+                        "창체",
+                        "창체"
+                    ],
+                    "thu": [
+                        "국어",
+                        "한문",
+                        "통과",
+                        "통사",
+                        "영어",
+                        "수학",
+                        "체육"
+                    ],
+                    "fri": [
+                        "미창",
+                        "진로",
+                        "한국사",
+                        "국어",
+                        "통과",
+                        "과탐",
+                        "자율"
+                    ]
+                }
+            ],
+            "required": [
+                "mon",
+                "tue",
+                "wed",
+                "thu",
+                "fri"
+            ],
+            "properties": {
+                "mon": {
+                    "$id": "#/properties/schedule/properties/mon",
+                    "type": "array",
+                    "title": "The mon schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        [
+                            "영어",
+                            "미창"
+                        ]
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/schedule/properties/mon/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/schedule/properties/mon/items/anyOf/0",
+                                "type": "string",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "영어",
+                                    "미창"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "tue": {
+                    "$id": "#/properties/schedule/properties/tue",
+                    "type": "array",
+                    "title": "The tue schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        [
+                            "수학",
+                            "한문"
+                        ]
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/schedule/properties/tue/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/schedule/properties/tue/items/anyOf/0",
+                                "type": "string",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "수학",
+                                    "한문"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "wed": {
+                    "$id": "#/properties/schedule/properties/wed",
+                    "type": "array",
+                    "title": "The wed schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        [
+                            "한국사",
+                            "수학"
+                        ]
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/schedule/properties/wed/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/schedule/properties/wed/items/anyOf/0",
+                                "type": "string",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "한국사",
+                                    "수학"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "thu": {
+                    "$id": "#/properties/schedule/properties/thu",
+                    "type": "array",
+                    "title": "The thu schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        [
+                            "국어",
+                            "한문"
+                        ]
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/schedule/properties/thu/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/schedule/properties/thu/items/anyOf/0",
+                                "type": "string",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "국어",
+                                    "한문"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "fri": {
+                    "$id": "#/properties/schedule/properties/fri",
+                    "type": "array",
+                    "title": "The fri schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        [
+                            "미창",
+                            "진로"
+                        ]
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/schedule/properties/fri/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/schedule/properties/fri/items/anyOf/0",
+                                "type": "string",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "미창",
+                                    "진로"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            },
+            "additionalProperties": true
+        },
+        "time": {
+            "$id": "#/properties/time",
+            "type": "object",
+            "title": "The time schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "time": [
+                        [
+                            9,
+                            0
+                        ],
+                        [
+                            10,
+                            0
+                        ],
+                        [
+                            11,
+                            0
+                        ],
+                        [
+                            12,
+                            50
+                        ],
+                        [
+                            13,
+                            50
+                        ],
+                        [
+                            14,
+                            50
+                        ],
+                        [
+                            15,
+                            50
+                        ]
+                    ],
+                    "lunch_time": [
+                        11,
+                        50
+                    ],
+                    "break_time": 10,
+                    "running_time": 50
+                }
+            ],
+            "required": [
+                "time",
+                "lunch_time",
+                "break_time",
+                "running_time"
+            ],
+            "properties": {
+                "time": {
+                    "$id": "#/properties/time/properties/time",
+                    "type": "array",
+                    "title": "The time schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        [
+                            [
+                                9,
+                                0
+                            ],
+                            [
+                                10,
+                                0
+                            ]
+                        ]
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/time/properties/time/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/time/properties/time/items/anyOf/0",
+                                "type": "array",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        9,
+                                        0
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/time/properties/time/items/anyOf/0/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/time/properties/time/items/anyOf/0/items/anyOf/0",
+                                            "type": "integer",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": 0,
+                                            "examples": [
+                                                9,
+                                                0
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "$id": "#/properties/time/properties/time/items/anyOf/1",
+                                "type": "array",
+                                "title": "The second anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        10,
+                                        0
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/time/properties/time/items/anyOf/1/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/time/properties/time/items/anyOf/1/items/anyOf/0",
+                                            "type": "integer",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": 0,
+                                            "examples": [
+                                                10,
+                                                0
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "$id": "#/properties/time/properties/time/items/anyOf/2",
+                                "type": "array",
+                                "title": "The third anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        11,
+                                        0
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/time/properties/time/items/anyOf/2/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/time/properties/time/items/anyOf/2/items/anyOf/0",
+                                            "type": "integer",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": 0,
+                                            "examples": [
+                                                11,
+                                                0
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "$id": "#/properties/time/properties/time/items/anyOf/3",
+                                "type": "array",
+                                "title": "The fourth anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        12,
+                                        50
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/time/properties/time/items/anyOf/3/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/time/properties/time/items/anyOf/3/items/anyOf/0",
+                                            "type": "integer",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": 0,
+                                            "examples": [
+                                                12,
+                                                50
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "$id": "#/properties/time/properties/time/items/anyOf/4",
+                                "type": "array",
+                                "title": "The fifth anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        13,
+                                        50
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/time/properties/time/items/anyOf/4/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/time/properties/time/items/anyOf/4/items/anyOf/0",
+                                            "type": "integer",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": 0,
+                                            "examples": [
+                                                13,
+                                                50
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "$id": "#/properties/time/properties/time/items/anyOf/5",
+                                "type": "array",
+                                "title": "The sixth anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        14,
+                                        50
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/time/properties/time/items/anyOf/5/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/time/properties/time/items/anyOf/5/items/anyOf/0",
+                                            "type": "integer",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": 0,
+                                            "examples": [
+                                                14,
+                                                50
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "$id": "#/properties/time/properties/time/items/anyOf/6",
+                                "type": "array",
+                                "title": "The seventh anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        15,
+                                        50
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/time/properties/time/items/anyOf/6/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/time/properties/time/items/anyOf/6/items/anyOf/0",
+                                            "type": "integer",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": 0,
+                                            "examples": [
+                                                15,
+                                                50
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                "lunch_time": {
+                    "$id": "#/properties/time/properties/lunch_time",
+                    "type": "array",
+                    "title": "The lunch_time schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": [],
+                    "examples": [
+                        [
+                            11,
+                            50
+                        ]
+                    ],
+                    "additionalItems": true,
+                    "items": {
+                        "$id": "#/properties/time/properties/lunch_time/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/time/properties/lunch_time/items/anyOf/0",
+                                "type": "integer",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0,
+                                "examples": [
+                                    11,
+                                    50
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "break_time": {
+                    "$id": "#/properties/time/properties/break_time",
+                    "type": "integer",
+                    "title": "The break_time schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0,
+                    "examples": [
+                        10
+                    ]
+                },
+                "running_time": {
+                    "$id": "#/properties/time/properties/running_time",
+                    "type": "integer",
+                    "title": "The running_time schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": 0,
+                    "examples": [
+                        50
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "memo": {
+            "$id": "#/properties/memo",
+            "type": "object",
+            "title": "The memo schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {}
+            ],
+            "required": [],
+            "additionalProperties": true
+        }
     },
-    "time": {
-        "time": [
-            [
-                "number",
-                "number"
-            ],
-            [
-                "number",
-                "number"
-            ],
-            [
-                "number",
-                "number"
-            ],
-            [
-                "number",
-                "number"
-            ],
-            [
-                "number",
-                "number"
-            ],
-            [
-                "number",
-                "number"
-            ],
-            [
-                "number",
-                "number"
-            ]
-        ],
-        "lunch_time": [
-            "number",
-            "number"
-        ],
-        "break_time": "number",
-        "running_time": "number"
-    },
-    "memo": { }
+    "additionalProperties": true
 }
