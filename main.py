@@ -6,6 +6,7 @@ from time_thread import TimeThread
 from util import resource_path
 from plyer import notification
 from util import getMemoAndOpenBrowser
+from util import openBrowser
 import datetime
 import sys
 import os
@@ -30,6 +31,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         self.today_korean = self.day_korean_string_list[datetime.datetime.today().weekday()] #오늘 요일 한글
         self.today = self.day_string_list[datetime.datetime.today().weekday()] #오늘 요일 영어
         self.action_schedule_change.triggered.connect(self.openScheduleEditer) #시간표 변경 메뉴 실행
+        self.text_browser_memo.anchorClicked.connect(self.anchorClicked) #텍스트 브라우저에서 url 클릭했을 경우
         self.period_schedule_widget_list = {'mon': [], 'tue': [], 'wed': [], 'thu': [], 'fri': []} #각 과목별 버튼
         self.toggle_list = [False]*7 #토글된 버튼 리스트-True일 경우 초록색, False일 경우 빨간색
         self.day_schedule_widget_layout_list = [ #각 요일별 레이아웃
@@ -93,6 +95,10 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         idx = self.period_schedule_widget_list[self.today].index(widget)
         widget.setStyleSheet(toggle_dic[self.toggle_list[idx]])
         self.toggle_list[idx] = not self.toggle_list[idx]
+
+    def anchorClicked(self, url):
+        text = str(url.toString())
+        openBrowser(text)
 
     def modifyMemo(self): #과목별 메모
         idx = self.period_schedule_widget_list[self.today].index(self.sender())
@@ -168,7 +174,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         memo = getMemoAndOpenBrowser(memo, is_open, current_period[0])
         self.current_txt = label_text
         self.label_current_time.setText(label_text)
-        self.text_browser_memo.setText(memo)
+        self.text_browser_memo.setHtml(memo)
 
     def getPeriod(self): #시간 체크 스레드 실행
         self.time_dic = self.file_manage_class.readTime(self.file_name)
