@@ -19,6 +19,6 @@ def getMemoAndOpenBrowser(text, is_open, current_period):
         for txt in text:
             if txt.startswith('http'):
                 txt = '<a href="{0}">{0}</a>'.format(txt)
-            new_text += txt + '<br>'
-        return ''.join(new_text)
+            new_text += txt
+        return ''.join(new_text).replace('\n', '<br>')
     return text.replace('\n', '<br>')
