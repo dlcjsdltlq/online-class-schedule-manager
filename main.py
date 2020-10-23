@@ -22,7 +22,7 @@ logo_ico = resource_path('./resources/icon/logo.ico')
 DEFAULT_FILE_PATH = 'C:\\OnlineClassScheduleManager'
 DEFAULT_FILE_NAME = 'schedule.json'
 
-CUR_VER = '1.1.3'
+CUR_VER = '1.2'
 LATEST_VER = requests.get('https://raw.githubusercontent.com/dlcjsdltlq/online-class-schedule-manager/master/version.json').json()['version']
 
 class MainWindow(QtWidgets.QMainWindow, main_form_class):
