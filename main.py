@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, QtGui, uic
+from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QFileDialog
 from manage_file import ManageFile
 from memo_window import MemoWindow
@@ -31,6 +32,9 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         self.checkVersion()
         self.setupUi(self)
         self.setWindowIcon(QtGui.QIcon(logo_ico))
+        self.style_font = QFont('Malgun Gothic')
+        self.setFont(self.style_font)
+        self.text_browser_memo.setFont(self.style_font)
         self.file_name : str #시간표 json 파일 이름
         self.schedule_dic : dict #시간표 데이터
         self.time_dic : dict #시간 일정 데이터
@@ -112,6 +116,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
                 widget.setText(self.schedule_dic[day][idx_period])
                 widget.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
                 widget.customContextMenuRequested.connect(self.modifyMemo)
+                widget.setFont(self.style_font)
                 if (day != self.today) or (self.schedule_dic[day][idx_period] == ''):
                     widget.setDisabled(True)
                     widget.setStyleSheet('QPushButton {font-size: 16px;}')
@@ -138,7 +143,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
             current_memo = self.file_manage_class.readMemo(self.file_name)[self.schedule_dic[self.today][idx]]
         except KeyError:
             current_memo = ''
-        self.memo_dialog = MemoWindow(target_widget=self.sender(), current_memo=current_memo)
+        self.memo_dialog = MemoWindow(target_widget=self.sender(), current_memo=current_memo, style_font=self.style_font)
         self.memo_dialog.memo_signal.connect(self.saveMemo)
         self.memo_dialog.show()
 
@@ -165,7 +170,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
 
     def openScheduleEditer(self): #시간표 수정 창 열기
-        self.schedule_window = ScheduleWindow(self.schedule_dic, self.time_dic)  
+        self.schedule_window = ScheduleWindow(self.schedule_dic, self.time_dic, self.style_font)  
         self.schedule_window.schedule_signal.connect(self.changeSchedule)
         self.schedule_window.show()
 

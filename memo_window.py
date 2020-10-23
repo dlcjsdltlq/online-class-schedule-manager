@@ -5,9 +5,10 @@ memo_form_class = uic.loadUiType(resource_path('./resources/ui/ui_memo_window.ui
 
 class MemoWindow(QtWidgets.QDialog, memo_form_class):
     memo_signal = QtCore.pyqtSignal(tuple)
-    def __init__(self, target_widget, current_memo):
+    def __init__(self, target_widget, current_memo, style_font):
         super().__init__()
         self.setupUi(self)
+        self.setFont(style_font)
         self.target_widget = target_widget
         self.text_edit_memo.setText(current_memo)
         self.btn_save_memo.clicked.connect(self.saveMemo)

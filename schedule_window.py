@@ -5,7 +5,7 @@ schedule_form_class = uic.loadUiType(resource_path('./resources/ui/ui_schedule_w
 
 class ScheduleWindow(QtWidgets.QDialog, schedule_form_class):
     schedule_signal = QtCore.pyqtSignal(tuple)
-    def __init__(self, schedule_lists, time_dic):
+    def __init__(self, schedule_lists, time_dic, style_font):
         super().__init__()
         self.setupUi(self)
         self.day_string_list = ['mon', 'tue', 'wed', 'thu', 'fri']
@@ -15,6 +15,7 @@ class ScheduleWindow(QtWidgets.QDialog, schedule_form_class):
         self.line_edit_running_t.setText(str(self.time_dic['running_time']))
         self.line_edit_break_t.setText(str(self.time_dic['break_time']))
         self.line_edit_lunch_t.setText(':'.join(map(str, self.time_dic['lunch_time'])))
+        self.setFont(style_font)
         for x in range(6):
             self.schedule_widgets.append([])
             for y in range(7):
@@ -24,6 +25,7 @@ class ScheduleWindow(QtWidgets.QDialog, schedule_form_class):
                     line_edit.setText(':'.join(map(str, self.time_dic['time'][y])))
                 else:
                     line_edit.setText(schedule_lists[self.day_string_list[x-1]][y])
+                line_edit.setFont(style_font)
                 self.schedule_widgets[-1].append(line_edit)
                 self.layout_schedule.addWidget(line_edit, y, x)
         self.btn_save.clicked.connect(self.saveData)
