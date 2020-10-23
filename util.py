@@ -21,4 +21,4 @@ def getMemoAndOpenBrowser(text, is_open, current_period):
                 txt = '<a href="{0}">{0}</a>'.format(txt)
             new_text += txt + '<br>'
         return ''.join(new_text)
-    return text
+    return text.replace('\n', '<br>')

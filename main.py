@@ -3,10 +3,12 @@ from manage_file import ManageFile
 from memo_window import MemoWindow
 from schedule_window import ScheduleWindow
 from time_thread import TimeThread
-from util import resource_path
+from packaging import version
 from plyer import notification
+from util import resource_path
 from util import getMemoAndOpenBrowser
 from util import openBrowser
+import requests
 import datetime
 import sys
 import os
@@ -15,9 +17,13 @@ main_form_class = uic.loadUiType(resource_path('./resources/ui/ui_main_window.ui
 schedule_sample_json = resource_path('./resources/json/schedule_sample.json')
 logo_ico = resource_path('./resources/icon/logo.ico')
 
+CUR_VER = '1.1.3'
+LATEST_VER = requests.get('https://raw.githubusercontent.com/dlcjsdltlq/online-class-schedule-manager/master/version.json').json()['version']
+
 class MainWindow(QtWidgets.QMainWindow, main_form_class):
     def __init__(self):
         super().__init__()
+        self.checkVersion()
         self.setupUi(self)
         self.setWindowIcon(QtGui.QIcon(logo_ico))
         self.file_name : str #시간표 json 파일 이름
@@ -46,6 +52,15 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
         self.readSchedule()
         self.makeAndDrawWidgets()
         self.getPeriod()
+
+    def checkVersion(self):
+        if version.parse(LATEST_VER) > version.parse(CUR_VER):
+            result = QtWidgets.QMessageBox.warning(self, '알림', '새 업데이트가 확인되었습니다\n다운로드 하시겠습니까?', QtWidgets.QMessageBox.Apply | QtWidgets.QMessageBox.Cancel)
+            if result == QtWidgets.QMessageBox.Apply:
+                openBrowser('https://github.com/dlcjsdltlq/online-class-schedule-manager/releases/download/{0}/online-class-schedule-manager.v{0}.zip'.format(LATEST_VER))
+                sys.exit(0)
+            else:
+                pass
 
     def getFileFromDefaultPath(self): #기본 경로에서 파일 가져오기
         default_path = 'C:\\OnlineClassScheduleManager'
