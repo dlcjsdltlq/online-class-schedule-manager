@@ -1,6 +1,7 @@
 import webbrowser
 import sys
 import os
+import re
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -12,13 +13,10 @@ def openBrowser(url):
 
 def getMemoAndOpenBrowser(text, is_open, current_period):
     if 'url:' in text:
-        text = text.replace('url:[[', '|||||').replace(']]', '|||||').split('|||||')
+        regex = re.compile(r'url:\[\[(.+?)\]\]')
+        urls = regex.findall(text)
         if is_open and current_period == 'yes':
-            webbrowser.open_new(text[1])
-        new_text = ''
-        for txt in text:
-            if txt.startswith('http'):
-                txt = '<a href="{0}">{0}</a>'.format(txt)
-            new_text += txt
-        return ''.join(new_text).replace('\n', '<br>')
+            for url in urls:
+                webbrowser.open_new(url)
+        text = re.sub(r'url:\[\[(.+?)\]\]', r'<a href="\1">\1</a>', text)
     return text.replace('\n', '<br>')
