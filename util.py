@@ -16,7 +16,6 @@ def getMemoAndOpenBrowser(text, is_open, current_period):
         regex = re.compile(r'url:\[\[(.+?)\]\]')
         urls = regex.findall(text)
         if is_open and current_period == 'yes':
-            for url in urls:
-                webbrowser.open_new(url)
+            webbrowser.open_new(urls[0])
         text = re.sub(r'url:\[\[(.+?)\]\]', r'<a href="\1">\1</a>', text)
     return text.replace('\n', '<br>')
