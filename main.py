@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtCore, QtGui, uic
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QFontDatabase
 from PyQt5.QtWidgets import QFileDialog
 from manage_file import ManageFile
 from memo_window import MemoWindow
@@ -105,7 +105,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
 
     def makeAndDrawWidgets(self): #과목별 버튼 생성 및 그리기
         idx_day = 0
-        self.label_today.setText(f'오늘은 {self.today_korean}요일 입니다')
+        self.label_today.setText(f'오늘은 {self.today_korean}요일입니다')
         for day in self.period_schedule_widget_list:
             idx_period = 0
             for i in range(7):
@@ -186,8 +186,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
     def changePeriod(self, current_period): #현재 교시 표시
         label_text = ''; memo = ''; next_memo = ''
         if current_period[0] == 'yes':
-            period_name = f'{self.schedule_dic[self.today][current_period[1]]}시간'
-            label_text = f'지금은 {current_period[1]+1}교시 {period_name}입니다.'
+            label_text = f'지금은 {current_period[1]+1}교시 {self.schedule_dic[self.today][current_period[1]]} 시간입니다.'
             try:
                 memo = self.file_manage_class.readMemo(self.file_name)[self.schedule_dic[self.today][current_period[1]]] + '\n'
             except: pass
@@ -203,7 +202,7 @@ class MainWindow(QtWidgets.QMainWindow, main_form_class):
             next_memo = self.file_manage_class.readMemo(self.file_name)[self.schedule_dic[self.today][current_period[1]+1]]
         except: pass
         else:
-            memo += '--------다음 교시 메모--------\n' + next_memo
+            memo += '<hr><strong style="text-align: center">다음 교시 메모</strong><hr>' + next_memo
         is_open = False
         if label_text != self.current_txt:
             notification.notify('알림', label_text, app_icon=logo_ico, app_name='온라인 수업 일정 도우미')

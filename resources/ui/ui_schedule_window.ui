@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>375</width>
+    <width>387</width>
     <height>305</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
     <widget class="QLabel" name="guide_label">
      <property name="text">
       <string>*7교시 미만일 경우 공백으로 작성. 시간은 09:00과 같이 작성함
-* 시간은 분 단위로 작성</string>
+*시간은 분 단위로 작성</string>
      </property>
     </widget>
    </item>
